@@ -297,4 +297,5 @@ TSWLatexianTemp*
 
 # End of https://www.toptal.com/developers/gitignore/api/latex
 
-output.pdf
+main.pdf
+.vim/

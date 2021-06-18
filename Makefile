@@ -1,7 +1,5 @@
 paper:
-	latexmk -jobname=output -pdf
+	latexmk -pdf
 
 clean:
-	latexmk -jobname=output -C
-	rm -f output.bbl
-	
+	latexmk -C -bibtex
