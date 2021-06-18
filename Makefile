@@ -2,6 +2,6 @@ paper:
 	latexmk -jobname=output -pdf
 
 clean:
-	latexmk -C
+	latexmk -jobname=output -C
 	rm -f output.bbl
 	
