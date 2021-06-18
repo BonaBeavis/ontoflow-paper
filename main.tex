@@ -118,7 +118,7 @@
 %% The abstract is a short summary of the work to be presented in the
 %% article.
 \begin{abstract}
-For many years, the development of widely applicable and high quality ontologies has been an ongoing research topic. Among the many challenges, the most prominent ones faced by researchers are the lack of 
+For many years, the development of widely applicable and high quality ontologies has been an ongoing research topic. Among the many challenges, the lack of integrated development environments for non-technical domain experts has been one of the most pressing research challenges. But while the participation of domain experts is vital for the applicability of ontologies, there are hardly any software tools available that facilitate their active engagement. We present a solution that addresses this research gap by automating the ontology development process with the help of a workflow engine. We define a pipeline that facilitates ontology implementation, serialization, documentation and testing within the scope of a seamless automatic routine than can be easily triggered by an ontology laymen with basic knowledge of bash usage. Thus, the processing pipeline takes care of most of the operations that usually have to be taken care of by an ontology or software engineer. We demonstrate the applicability of our approach for a wide range of ontologies and provide additional results on the quality level of ontologies throughout the Semantic Web landscape. 
 \end{abstract}
 
 %%
@@ -170,8 +170,9 @@ For many years, the development of widely applicable and high quality ontologies
 
 
 \section{Related Work}
-Continous integration principles of software engineering 
-\cite{fowler}
+Continuous integration strategies have become an indispensable part of modern software engineering.
+They largely consist of clean up operations, compilation of executables, application of automated tests, and the deployment of the finished application, including generation of appropriate documentation if necessary. Part of these processes is the continuous checking of any updates/ new versions as well as the triggering of toubleshooting activities if problems occur \cite{fowler}. 
+This ensures that software solutions are always up-to-date and that applications meet predefined quality standards.
 
 CI should be applicable to dataset-specific operations. First attempts have been undertaken.
 \cite{cirulli, klimek, kucera, meissner, rojas, roman, stadler}
@@ -179,6 +180,31 @@ CI should be applicable to dataset-specific operations. First attempts have been
 The same holds true for ontology development. Typically, CI mechanisms are instance data collections the result of operations such as crawling, linking, or data transformation. 
 . These processes are usually executed automatically and, aside from the effort of creating specifications and linking steps, are little interrupted by user interactions and manual intervention. If people work with appropriate software tools in this context, they are usually Data Scientists or Software Engineers. 
 
+\section{Evaluation}
+\subsection{Entire setup}
+%datasets:
+%-dataset 1:  Chowlk XML collection: https://github.com/oeg-upm/Chowlk/tree/webservice/data
+%-dataset 2: All ontologies from Linked Open Vocabularies (LOV), ca. 700, dumps via
+%https://lov.linkeddata.es/dataset/lov/sparql
+% for each of the ontologies
+%=>run the entire workflow
+%=>log the processing time
+%log success/failure
+%have a look at each processing step individually and answer the following
+%questions
+%how many workflows failed here?
+%what was the average processing time for this workflow step?
+%STEP 1: TURTLE GENERATION (dataset 1 only)
+%STEP 2: DOCUMENTATION (dataset 1 & 2)
+%STEP 3: SERIALIZATION (dataset 1 & 2)
+%STEP 4: ONTOLOGY TESTS (dataset 1 & 2)
+%for dataset 4 only: evaluate ontology tests:
+%how many schema violations (owl,rdfs) where there? (rdfunit flag -s)
+%how many metadata errors where there:
+%=> W3C Reference:
+%"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
+
+\subsection{Results}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
