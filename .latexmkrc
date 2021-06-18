@@ -1,6 +1,9 @@
 # Settings
 $xdvipdfmx = "xdvipdfmx -z 6 -o %D %O %S";
 
+$ENV{'TEXINPUTS'}='./tex//:' . $ENV{'TEXINPUTS'}; 
+$ENV{'BSTINPUTS'}='./bst//:' . $ENV{'BSTINPUTS'};
+
 ###############################
 # Post processing of pdf file #
 ###############################

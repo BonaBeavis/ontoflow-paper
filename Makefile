@@ -1,9 +1,7 @@
-paper: clean
-	latexmk -pdf
-	latexmk -c
-	rm -f main.bbl
+paper:
+	latexmk -jobname=output -pdf
 
 clean:
 	latexmk -C
-	rm -f main.bbl
+	rm -f output.bbl
 	
