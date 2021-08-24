@@ -173,16 +173,44 @@ usability
 \section{Related Work}
 Continuous integration strategies have become an indispensable part of modern software engineering.
 They largely consist of clean up operations, compilation of executables, application of automated tests, and the deployment of the finished application, including generation of appropriate documentation if necessary. Part of these processes is the continuous checking of any updates/ new versions as well as the triggering of toubleshooting activities if problems occur \cite{fowler}.
-This ensures that software solutions are always up-to-date and that applications meet predefined quality standards.
+This ensures that software solutions are always up-to-date, that applications meet predefined quality standards and rely on stable software artifacts.\\
+Likewise, in the wake of ever-growing data volumes and increased relevance of data-driven applications, effective mechanisms to control the quality-assured publication of data products have become an important requirement for IT operations. Processes that follow Continuous Integration (CI) principles are equally applicable when the production of data artifacts in collaborative environments should be made more efficient. The field of knowledge graph development has been one of the first communities to adopt DevOps best practices for datasets since it heavily relies on high quality data schemas and reproducible workflows for data conversion, integration and fusion. In this line of research, several authors have proposed 
 
-CI should be applicable to dataset-specific operations. First attempts have been undertaken.
+
+First attempts have been undertaken.
 \cite{cirulli, klimek, kucera, meissner, rojas, roman, stadler}
 
 The same holds true for ontology development. Typically, CI mechanisms are instance data collections the result of operations such as crawling, linking, or data transformation.
 . These processes are usually executed automatically and, aside from the effort of creating specifications and linking steps, are little interrupted by user interactions and manual intervention. If people work with appropriate software tools in this context, they are usually Data Scientists or Software Engineers.
 
+
+Workflow engines typically operate on tabular data and stem from the biomedical domain...
+\section{Ontology Development Workflow}
+\subsection{Goals}
+- recurring tasks
+- efficient ontology development process
+- permanent documentation and hosting 
+- explainability of the development lifecycle
+- dream: worldwide standard on how to document ontologies
+- better implementation of best practices
+- end-user friendly presentation of the status quo of the ontology
+\subsection{Workflow Structure}
+\begin{figure}[ht]
+	\centering
+  \includegraphics[width=0.45\textwidth]{Workflow.png}
+	\caption{Ontology Workflow}
+	\label{fig2}
+\end{figure}
+\begin{itemize}
+\item Ontology Development: drawing- or editor-based development 
+\item Ontology Transformation
+\item 
+\end{itemize}
+\subsection{Implementation and Architecture}
 \section{Evaluation}
-\subsection{Entire setup}
+\subsection{Evaluation Setup}
+- dataset description LOV (How many etc.)
+- applicabilty to a broad range of ontologies 
 %datasets:
 %-dataset 1:  Chowlk XML collection: https://github.com/oeg-upm/Chowlk/tree/webservice/data
 %-dataset 2: All ontologies from Linked Open Vocabularies (LOV), ca. 700, dumps via
@@ -204,7 +232,6 @@ The same holds true for ontology development. Typically, CI mechanisms are insta
 %how many metadata errors where there:
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
-
 \subsection{Results}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
