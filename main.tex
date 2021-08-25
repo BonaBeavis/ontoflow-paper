@@ -37,6 +37,8 @@
 %% The first command in your LaTeX source must be the \documentclass command.
 \documentclass[sigconf]{acmart}
 
+\usepackage[colorinlistoftodos]{todonotes}
+
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
 \AtBeginDocument{%
@@ -182,28 +184,61 @@ Other tools, such as Oops! focus more on the aspect of quality assurance \cite{p
 But although software applications are already available that support collaborative ontology development processes and also automate them in parts, there is a lack of approaches as to how these processes can be linked in the sense of a CI pipeline while at the same time ensuring that laymen can actively participate in development through making changes and triggering ontology updates.
 
 \section{Ontology Development Workflow}
-\subsection{Requirements}
-- recurring tasks
-- efficient ontology development process
-- permanent documentation and hosting 
-- explainability of the development lifecycle
-- dream: worldwide standard on how to document ontologies
-- better implementation of best practices
+
+\subsection{Goals}
+
+During ontology development as much time as possible should be spent on working on the Ontology itself. 
+OntoFlow should streamline the ontology development process, by lowering the barrier of entry\todo{}, automating as much as possible and providing easy modification.\todo{}
+
+Fixed costs associated with ontology development, are the time for learning the involved technologies and setting up a development and hosting infrastructure. The infrastructure can incur further costs for licences and hardware.
+Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them.
+OntoFlow should provide a GUI for editing the ontology, while making use of the most common skills of a ontology developer, like terminal, git and ci-system. And everything needs to be open source.\todo{}
+OntoFlow should also check the ontology if best practices are followed, this reduces the time further.\todo{}
+
+OntoFlow should save time by automating the setup of the ontology development process and the development iteration steps.
+The setup includes setting up a web-server, where the ontology and its documentation are hosted and the applications needed for editing the ontology.
+When developing iteratively following task will repeat:
+  - Domain expert and ontology engineer edit ontology
+  - Ontology must be validated against best practices
+  - Documentation must be updated
+  - Ontology and Documentation must be published
+Here OntoFlow should only need human involvement in the first step.
+
+Because there is no established methodology for ontology development and it happens in divers environments, OntoFlow must be flexible and allow easy modification to accommodate different needs.
+
+Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{}
+
 - end-user friendly presentation of the status quo of the ontology
+- explainability of the development lifecycle
+
 \subsection{Workflow Structure}
+
+Input for the workflow are ontologies defined with the Web Ontology Language (OWL). Those can either be in a RDF serialization or defined with the Chowlk Ontology Visual Notation. This is an specification for creating Ontology diagrams in draw.io.
+The Chowlk diagram is transformed to an OWL file and gets merged with the other OWL files.
+The merged ontology is basis for the next processing steps which happen in parallel.
+It is converted to different RDF serializations.
+In the ontology validation process step, the ontology is validated against SHACL shapes.
+For postprocessing OntoFlow picks up prov\todo{} and creates a semantic diff against the previous version.
+A HTML documentation is generated.\todo{describe package}
+
+
+
 \begin{figure}[ht]
-	\centering
+  \centering
   \includegraphics[width=0.45\textwidth]{Workflow.png}
-	\caption{Ontology Workflow}
-	\label{fig2}
-\end{figure}
+  \caption{Ontology Workflow}
+  \label{fig2}
+\end{figure}\todo{arrows, shacl shapes, tools?}
 \begin{itemize}
-\item Ontology Development: drawing- or editor-based development 
-\item Ontology Transformation
-\item 
+  \item Ontology Development: drawing- or editor-based development 
+  \item Ontology Transformation
+  \item 
 \end{itemize}
+
 \subsection{Implementation and Architecture}
+
 \section{Evaluation}
+
 \subsection{Evaluation Setup}
 - dataset description LOV (How many etc.)
 - applicabilty to a broad range of ontologies 
