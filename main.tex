@@ -171,22 +171,18 @@ no standard toolstack in the Semantic Web community => containerisierung
 usability
 
 \section{Related Work}
-Continuous integration strategies have become an indispensable part of modern software engineering.
+Continuous development and integration strategies have become an indispensable part of modern software engineering.
 They largely consist of clean up operations, compilation of executables, application of automated tests, and the deployment of the finished application, including generation of appropriate documentation if necessary. Part of these processes is the continuous checking of any updates/ new versions as well as the triggering of toubleshooting activities if problems occur \cite{fowler}.
 This ensures that software solutions are always up-to-date, that applications meet predefined quality standards and rely on stable software artifacts.\\
-Likewise, in the wake of ever-growing data volumes and increased relevance of data-driven applications, effective mechanisms to control the quality-assured publication of data products have become an important requirement for IT operations. Processes that follow Continuous Integration (CI) principles are equally applicable when the production of data artifacts in collaborative environments should be made more efficient. The field of knowledge graph development has been one of the first communities to adopt DevOps best practices for datasets since it heavily relies on high quality data schemas and reproducible workflows for data conversion, integration and fusion. In this line of research, several authors have proposed 
+Likewise, in the wake of ever-growing data volumes and increased relevance of data-driven applications, effective mechanisms to control the quality-assured publication of data products have become important requirements for IT operations. Processes that follow Continuous Integration (CI) principles are equally applicable when the production of data artifacts in collaborative environments should be made more efficient. The knowledge graph community has been one of the first to adopt DevOps best practices for datasets since it heavily relies on high quality data schemas and reproducible workflows for data conversion, integration and fusion. In this line of research, several authors have proposed automated data pipelines that not only take care of data transformation but also apply quality assurance operations and automatic procedures for data publication and effective description of data artifacts
+\cite{cirulli, klimek, kucera, meissner, rojas, roman, stadler, dataid}. Typically, CI mechanisms for data collections involve operations such as crawling, linking, or data transformation. These processes are usually executed automatically and, aside from the effort of creating specifications for data conversion, are little interrupted by user interactions and manual intervention. If people work with appropriate software tools in this context, they are mostly data scientists or software engineers.\\
+This modus operandi differs from the determining factors in ontology development processes. The creation of an ontology usually involves several experts with diverse backgrounds and different levels of technical expertise. Therefore, an effective ontology development environment/pipeline has to foster collaboration as well as provide a graphical editor in order to effectively support development processes. By this means, even domain experts with little IT expertise can actively take part in the creation of ontologies.\\
+Ontology editors such as Protégé \cite{protege}, Vocol \cite{halilaj} or WebVOWL \cite{lohmann} are already established software tools for ontology development and visualisation. Meanwhile, other applications in this area focus more on aspects of collaborative and version-based storage of ontologies so that changes can be managed decentrally and tracked over time. Software tools, such as Ontoology \cite{alobaid} or the QuitStore \cite{arndt} provide solutions for these kinds of requirements.\\
+Other tools, such as Oops! focus more on the aspect of quality assurance \cite{poveda} while general purpose RDF data testing suites, such as RDFUnit \cite{rdfunit} or pySHACL\footnote{\url{https://github.com/RDFLib/pySHACL}} can be equally applied for ontology testing. Just as important as quality assurance of ontologies is documentation prepared for end users in a form understandable by users. Software applications that automatically generate ontology documentations are WIDOCO \cite{widoco}, LODE \cite{lode} or pyLODE\footnote{\url{https://github.com/RDFLib/pyLODE}}. They create a HTML representation from ontologies in standard RDF serialization formats.\\
+But although software applications are already available that support collaborative ontology development processes and also automate them in parts, there is a lack of approaches as to how these processes can be linked in the sense of a CI pipeline while at the same time ensuring that laymen can actively participate in development through making changes and triggering ontology updates.
 
-
-First attempts have been undertaken.
-\cite{cirulli, klimek, kucera, meissner, rojas, roman, stadler}
-
-The same holds true for ontology development. Typically, CI mechanisms are instance data collections the result of operations such as crawling, linking, or data transformation.
-. These processes are usually executed automatically and, aside from the effort of creating specifications and linking steps, are little interrupted by user interactions and manual intervention. If people work with appropriate software tools in this context, they are usually Data Scientists or Software Engineers.
-
-
-Workflow engines typically operate on tabular data and stem from the biomedical domain...
 \section{Ontology Development Workflow}
-\subsection{Goals}
+\subsection{Requirements}
 - recurring tasks
 - efficient ontology development process
 - permanent documentation and hosting 
@@ -233,6 +229,7 @@ Workflow engines typically operate on tabular data and stem from the biomedical 
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 \subsection{Results}
+\section{Conclusion}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
