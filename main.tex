@@ -182,8 +182,13 @@ This modus operandi differs from the determining factors in ontology development
 Ontology editors such as Protégé \cite{protege}, Vocol \cite{halilaj} or WebVOWL \cite{lohmann} are already established software tools for ontology development and visualisation. Meanwhile, other applications in this area focus more on aspects of collaborative and version-based storage of ontologies so that changes can be managed decentrally and tracked over time. Software tools, such as Ontoology \cite{alobaid} or the QuitStore \cite{arndt} provide solutions for these kinds of requirements.\\
 Other tools, such as Oops! focus more on the aspect of quality assurance \cite{poveda} while general purpose RDF data testing suites, such as RDFUnit \cite{rdfunit} or pySHACL\footnote{\url{https://github.com/RDFLib/pySHACL}} can be equally applied for ontology testing. Just as important as quality assurance of ontologies is documentation prepared for end users in a form understandable by users. Software applications that automatically generate ontology documentations are WIDOCO \cite{widoco}, LODE \cite{lode} or pyLODE\footnote{\url{https://github.com/RDFLib/pyLODE}}. They create a HTML representation from ontologies in standard RDF serialization formats.\\
 But although software applications are already available that support collaborative ontology development processes and also automate them in parts, there is a lack of approaches as to how these processes can be linked in the sense of a CI pipeline while at the same time ensuring that laymen can actively participate in development through making changes and triggering ontology updates.
+\todo{https://www.nature.com/articles/s41587-020-0439-x}
 
 \section{Ontology Development Workflow}
+
+- creating
+- testing
+- deployment
 
 \subsection{Goals}
 
@@ -196,7 +201,7 @@ OntoFlow should provide a GUI for editing the ontology, while making use of the 
 OntoFlow should also check the ontology if best practices are followed, this reduces the time further.\todo{}
 
 OntoFlow should save time by automating the setup of the ontology development process and the development iteration steps.
-The setup includes setting up a web-server, where the ontology and its documentation are hosted and the applications needed for editing the ontology.
+The setup includes setting up a web-server, where the ontology and its documentation are hosted and the applications needed for editing the ontology./todo{enable collaboration}
 When developing iteratively following task will repeat:
   - Domain expert and ontology engineer edit ontology
   - Ontology must be validated against best practices
@@ -206,7 +211,13 @@ Here OntoFlow should only need human involvement in the first step.
 
 Because there is no established methodology for ontology development and it happens in divers environments, OntoFlow must be flexible and allow easy modification to accommodate different needs.
 
-Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{}
+- follow best practices software engineering
+  - github
+  - linting
+  - build process
+  - reuse
+
+Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
 
 - end-user friendly presentation of the status quo of the ontology
 - explainability of the development lifecycle
@@ -228,7 +239,7 @@ A HTML documentation is generated.\todo{describe package}
   \includegraphics[width=0.45\textwidth]{Workflow.png}
   \caption{Ontology Workflow}
   \label{fig2}
-\end{figure}\todo{arrows, shacl shapes, tools?}
+\end{figure}\todo{arrows, shacl shapes, tools?}\todo{screenshot of chowlk}
 \begin{itemize}
   \item Ontology Development: drawing- or editor-based development 
   \item Ontology Transformation
@@ -236,6 +247,39 @@ A HTML documentation is generated.\todo{describe package}
 \end{itemize}
 
 \subsection{Implementation and Architecture}
+
+The architectural model for OntoFlow is a pipeline consisting of processes where each takes inputs, transform the inputs and outputs the results.
+Inputs and output from the processes are interconnected.
+The transformations are handled by application programs with command-line interface.
+All applications are containerised and the container images are defined by an definition file.
+A workflow engine manages the containers' lifecycle and executes the applications and pipes the inputs and outputs.
+The pipeline process steps, with executed command/{todo}, container and connection are defined in a workflow definition file.
+Those file are managed inside a version control system. There is also a ci script for building the images and pushing them to a container registry and deploying the final outputs.
+The inputs are owl ontologies, chowlk diagrams and shacl shapes and output are/todo{see workflow definition} hosted in their own repository.
+Workflow execution can either happen locally or in a ci environment.
+
+- As workflow engine we choose nextflow.
+- The container engine is docker.
+- Collaborative editing with gitlab.
+- Graphical ontology creation with drawio and chowlk.
+  - integration with gitlab
+- validation with pyshacl
+- sematic diff with bubastis
+- serializations and meging with jena
+- Sparql-integrate for rdf processing
+- documentation is created with pyshacl
+- documentation hosted with gitlab pages
+
+
+
+Each processes' transformation is performed
+- pipline with processsteps
+- put tools in containers wire together with an workflow engine and use existing infrastructure
+
+- nextflow
+- container
+  - interoperabilty
+  - reproducible
 
 \section{Evaluation}
 
@@ -264,7 +308,7 @@ A HTML documentation is generated.\todo{describe package}
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 \subsection{Results}
-\section{Conclusion}
+\section{Conclusion}\todo{nfcore!!}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
