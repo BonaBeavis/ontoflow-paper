@@ -190,18 +190,10 @@ But although software applications are already available that support collaborat
 - testing
 - deployment
 
-\subsection{Goals}
+\subsection{Requirements}
+The goal of Ontoflow is the best possible optimization and automation of ontology development processes which typically currently involve a great number of labor-intensive tasks, such as modeling, serialization, updating testing and documentation. Due to the fact that such development processes are carried out by several stakeholders, the workflow environment should foster a collaborative and decentralized way of working.\\
+Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be easily modified and that the execution of a workflow can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a webserver for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware.
 
-During ontology development as much time as possible should be spent on working on the Ontology itself. 
-OntoFlow should streamline the ontology development process, by lowering the barrier of entry\todo{}, automating as much as possible and providing easy modification.\todo{}
-
-Fixed costs associated with ontology development, are the time for learning the involved technologies and setting up a development and hosting infrastructure. The infrastructure can incur further costs for licences and hardware.
-Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them.
-OntoFlow should provide a GUI for editing the ontology, while making use of the most common skills of a ontology developer, like terminal, git and ci-system. And everything needs to be open source.\todo{}
-OntoFlow should also check the ontology if best practices are followed, this reduces the time further.\todo{}
-
-OntoFlow should save time by automating the setup of the ontology development process and the development iteration steps.
-The setup includes setting up a web-server, where the ontology and its documentation are hosted and the applications needed for editing the ontology./todo{enable collaboration}
 When developing iteratively following task will repeat:
   - Domain expert and ontology engineer edit ontology
   - Ontology must be validated against best practices
