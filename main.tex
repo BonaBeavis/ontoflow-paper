@@ -38,6 +38,7 @@
 \documentclass[sigconf]{acmart}
 
 \usepackage[colorinlistoftodos]{todonotes}
+\usepackage{tabularx}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -192,18 +193,46 @@ But although software applications are already available that support collaborat
 
 \subsection{Requirements}
 The goal of Ontoflow is the best possible optimization and automation of ontology development processes which typically currently involve a great number of labor-intensive tasks, such as modeling, serialization, updating testing and documentation. Due to the fact that such development processes are carried out by several stakeholders, the workflow environment should foster a collaborative and decentralized way of working.\\
-Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a webserver for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware.
+Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a webserver for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware. Because there is no established methodology for ontology development and it happens in diverse environments, OntoFlow must be flexible and facilitate easy modifications to accommodate for different needs.\\
+Table \ref{tab:req} gives an overview of the requirements detailed in the above sections.
 
-can be easily modified and that the execution of a workflow 
-
-When developing iteratively following task will repeat:
-  - Domain expert and ontology engineer edit ontology
-  - Ontology must be validated against best practices
-  - Documentation must be updated
-  - Ontology and Documentation must be published
-Here OntoFlow should only need human involvement in the first step.
-
-Because there is no established methodology for ontology development and it happens in divers environments, OntoFlow must be flexible and allow easy modification to accommodate different needs.
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% \usepackage{multirow}
+\begin{table*}[htb]
+\begin{tabular}{@{}lll@{}}
+\toprule
+Main Requirement &
+  Sub-Requirement &
+  Explanation \\ \midrule
+\textbf{RQ1 ODP Automation} &
+  RQ1.1 Ontology serialization &
+  \begin{tabular}[l]{@{}l@{}}Ontology artifacts can be automatically \\ serialized in common RDF formats \\ (e.g., RDF/XML, Turtle or NTRIPLES\end{tabular} \\\\
+ & 
+  RQ1.2 Ontology Validation &
+  \begin{tabular}[l]{@{}l@{}}Automatic testing of ontology artifacts\\ is integrated\end{tabular} \\\\
+ &
+  RQ1.3 Ontology Postprocessing &
+  \begin{tabular}[l]{@{}l@{}}Intgrating automatic postprocessing \\ operations, such as updating meta-information, \\ version control or diff detection\end{tabular} \\\\
+ &
+  \begin{tabular}[l]{@{}l@{}}RQ1.4 Ontology Publication and \\ Documentation\end{tabular} &
+  \begin{tabular}[l]{@{}l@{}}Automatic deployment of ontology artifacts \\ (serialization and HTML documentation) to a server\end{tabular} \\\\
+\textbf{RQ2 High (Re-)Usability} &
+  RQ2.1 GUI support &
+  \begin{tabular}[l]{@{}l@{}}Support of ontology modelling through \\ a GUI\end{tabular} \\\\
+ &
+  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution of ontology\\ workflows\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}Domain experts (with little to no IT background)\\ should be able to trigger ontology workflows\end{tabular} \\\\
+ &
+  \begin{tabular}[c]{@{}l@{}}RQ2.3 Easy modification and\\ re-use of ontology workflows\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}It should be easy to modify and re-use existing\\ ontology workflows\end{tabular} \\\\
+\hline
+\end{tabular}
+\label{tab:req}
+\caption{Requirements for OntoFlow}
+\end{table*}
+  
+\subsection{Workflow Structure}
 
 - follow best practices software engineering
   - github
@@ -212,11 +241,6 @@ Because there is no established methodology for ontology development and it happ
   - reuse
 
 Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
-
-- end-user friendly presentation of the status quo of the ontology
-- explainability of the development lifecycle
-
-\subsection{Workflow Structure}
 
 Input for the workflow are ontologies defined with the Web Ontology Language (OWL). Those can either be in a RDF serialization or defined with the Chowlk Ontology Visual Notation. This is an specification for creating Ontology diagrams in draw.io.
 The Chowlk diagram is transformed to an OWL file and gets merged with the other OWL files.
