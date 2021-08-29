@@ -254,7 +254,7 @@ A HTML documentation is generated.\todo{describe package}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.45\textwidth]{Workflow.png}
+  \includegraphics[width=0.45\textwidth]{workflow.png}
   \caption{Ontology Workflow}
   \label{fig2}
 \end{figure}\todo{arrows, shacl shapes, tools?}\todo{screenshot of chowlk}
@@ -273,20 +273,30 @@ All applications are containerised and the container images are defined by an de
 A workflow engine manages the containers' lifecycle and executes the applications and pipes the inputs and outputs.
 The pipeline process steps, with executed command/{todo}, container and connection are defined in a workflow definition file.
 Those file are managed inside a version control system. There is also a ci script for building the images and pushing them to a container registry and deploying the final outputs.
-The inputs are owl ontologies, chowlk diagrams and shacl shapes and output are/todo{see workflow definition} hosted in their own repository.
-Workflow execution can either happen locally or in a ci environment.
+The inputs are owl ontologies, chowlk diagrams and shacl shapes and output are\todo{see workflow definition} hosted in their own repository.
+Workflow execution can either happen locally or in a ci environment.\todo{add benefits from architectural decisions}
 
-- As workflow engine we choose nextflow.
-- The container engine is docker.
-- Collaborative editing with gitlab.
-- Graphical ontology creation with drawio and chowlk.
-  - integration with gitlab
-- validation with pyshacl
-- sematic diff with bubastis
-- serializations and meging with jena
-- Sparql-integrate for rdf processing
-- documentation is created with pyshacl
-- documentation hosted with gitlab pages
+The pipeline was implemented as an nextflow workflow and Docker was choosen as the container engine.
+For each tool used in a process step a docker image was created, if not one already existed.
+Here is a list of the used tools and their tasks:
+
+\begin{itemize}
+  \item Chowlk: Converts ontology diagram to OWL-File.
+  \item pySHACL: Validates ontology against SHACL shapes.
+  \item Bubastis: Creates a semantic diff to an older ontology version.
+  \item Jena Riot: Serializises and merges RDF-Files.
+  \item sparql-integrate: Extracts and manipulates Data in RDF-Files.\todo{versioning}
+  \item pyLODE: Create ontology documentation in HTML.
+\end{itemize}
+
+Chowlk provides a library of owl diagram elements for draw.io, which is an open source diagram software.
+Ontoflow can be run on any linux system with Java and Docker, it realizes it full potential in combination with the Gitlab ecosystem.
+With the ontology files hosted in a Gitlab repository, the ontology can be edited collaborativly. Because draw.io can use a Gitlab repository as a storage backend collaborative editing can be achived without the user beeing exposed explicitly to git.
+After a change to the ontology a Gitlab continuous integration job is triggered, which runs the workflow and publishes its resulting artifact package as an Gitlab Page.
+
+
+Github also hosts Ontoflow and the tool images in its container registry.
+
 
 \begin{figure}[ht]
   \centering
