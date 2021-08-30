@@ -234,15 +234,10 @@ Main Requirement &
   
 \subsection{Workflow Structure}
 
-- follow best practices software engineering
-  - github
-  - linting
-  - build process
-  - reuse
+There are three possible inputs for the workflow.
+Ontologies defined with the Web Ontology Language (OWL) serialized as a RDF file\todo{RDF file or RDF-file}.
+Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library and exported to a XML-File.
 
-Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
-
-Input for the workflow are ontologies defined with the Web Ontology Language (OWL). Those can either be in a RDF serialization or defined with the Chowlk Ontology Visual Notation. This is an specification for creating Ontology diagrams in draw.io.
 The Chowlk diagram is transformed to an OWL file and gets merged with the other OWL files.
 The merged ontology is basis for the next processing steps which happen in parallel.
 It is converted to different RDF serializations.
@@ -254,7 +249,7 @@ A HTML documentation is generated.\todo{describe package}
 
 \begin{figure}[ht]
   \centering
-  \includegraphics[width=0.45\textwidth]{workflow.png}
+  \includegraphics[width=0.35\textwidth]{workflow.png}
   \caption{Ontology Workflow}
   \label{fig2}
 \end{figure}\todo{arrows, shacl shapes, tools?}\todo{screenshot of chowlk}
@@ -271,7 +266,7 @@ Inputs and output from the processes are interconnected.
 The transformations are handled by application programs with command-line interface.
 All applications are containerised and the container images are defined by an definition file.
 A workflow engine manages the containers' lifecycle and executes the applications and pipes the inputs and outputs.
-The pipeline process steps, with executed command/{todo}, container and connection are defined in a workflow definition file.
+The pipeline process steps, with executed command\todo{}, container and connection are defined in a workflow definition file.
 Those file are managed inside a version control system. There is also a ci script for building the images and pushing them to a container registry and deploying the final outputs.
 The inputs are owl ontologies, chowlk diagrams and shacl shapes and output are\todo{see workflow definition} hosted in their own repository.
 Workflow execution can either happen locally or in a ci environment.\todo{add benefits from architectural decisions}
@@ -342,6 +337,14 @@ Each processes' transformation is performed
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 \subsection{Results}
 \section{Conclusion}\todo{nfcore!!}
+\section{Notes}
+- follow best practices software engineering
+  - github
+  - linting
+  - build process
+  - reuse
+
+Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
