@@ -234,16 +234,19 @@ Main Requirement &
   
 \subsection{Workflow Structure}
 
-There are three possible inputs for the workflow.
-Ontologies defined with the Web Ontology Language (OWL) serialized as a RDF file\todo{RDF file or RDF-file}.
-Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library and exported to a XML-File.
+Inputs for the workflow are provided by the user\todo{user?} and OntoFlow.
+The user provides Chowlk diagrams, OWL files and SHACL shapes.
+SHACL shapes are also provided by OntoFlow, those validate the ontology against a set of shapes, which check for best practices.\todo{right place for descrining what the shapes do?}
+Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.\todo{sentence too long}
+The OWL files define ontologies with the Web Ontology Language (OWL) and are serialized as a RDF file.
+The user can also provide SHACL shapes for validating the ontology.\todo{example}
 
-The Chowlk diagram is transformed to an OWL file and gets merged with the other OWL files.
-The merged ontology is basis for the next processing steps which happen in parallel.
-It is converted to different RDF serializations.
+First process step is the transformation of the Chowlk diagrams to OWL files and merging those with those OWL files provided by the user.
+The resulting ontology is the input for the following parallel processing steps.
+A HTML documentation is generated, describing the ontology's metadata, classes and properties.
+The ontology is serialized into multiple RDF formats.
 In the ontology validation process step, the ontology is validated against SHACL shapes.
-For postprocessing OntoFlow picks up prov\todo{} and creates a semantic diff against the previous version.
-A HTML documentation is generated.\todo{describe package}
+OntoFlow picks up the `owl:priorVersion`\todo{} property and creates a semantic diff against the previous version. The semantic diff gives an overview which classes changed in the current version compared to the prior version.
 
 
 
@@ -345,6 +348,8 @@ Each processes' transformation is performed
   - reuse
 
 Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
+
+output is not fully integrated to documentation
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
