@@ -233,10 +233,10 @@ Main Requirement &
 \end{table*}
   
 \subsection{Workflow Structure}
-
+\todo{remove implementation details}
 Inputs for the workflow are provided by the user\todo{user?} and OntoFlow.
-The user provides Chowlk diagrams, OWL files and SHACL shapes.
-SHACL shapes are also provided by OntoFlow, those validate the ontology against a set of shapes, which check for best practices.\todo{right place for descrining what the shapes do?}
+The user provides ontology diagrams, ontology files and validation shapes\todo{shapes}.
+Validation shapes are also provided by OntoFlow, those validate the ontology against a set of shapes, which check for best practices.\todo{right place for descrining what the shapes do?}
 Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.\todo{sentence too long}
 The OWL files define ontologies with the Web Ontology Language (OWL) and are serialized as a RDF file.
 The user can also provide SHACL shapes for validating the ontology.\todo{example}
@@ -247,6 +247,8 @@ A HTML documentation is generated, describing the ontology's metadata, classes a
 The ontology is serialized into multiple RDF formats.
 In the ontology validation process step, the ontology is validated against SHACL shapes.
 OntoFlow picks up the `owl:priorVersion`\todo{} property and creates a semantic diff against the previous version. The semantic diff gives an overview which classes changed in the current version compared to the prior version.
+
+The serializations, documentation, validation reports and semantic diff compose the Ontology Artifact Package.\todo{what does it do}
 
 
 
@@ -264,17 +266,27 @@ OntoFlow picks up the `owl:priorVersion`\todo{} property and creates a semantic 
 
 \subsection{Implementation and Architecture}
 
-The architectural model for OntoFlow is a pipeline consisting of processes where each takes inputs, transform the inputs and outputs the results.
+The architectural model for OntoFlow is a pipeline consisting of processes where each process takes inputs, transform the inputs and outputs the results.
 Inputs and output from the processes are interconnected.
-The transformations are handled by application programs with command-line interface.
+Each process's transformation is applied to the inputs by application program with a command-line interface.
 All applications are containerised and the container images are defined by an definition file.
-A workflow engine manages the containers' lifecycle and executes the applications and pipes the inputs and outputs.
-The pipeline process steps, with executed command\todo{}, container and connection are defined in a workflow definition file.
-Those file are managed inside a version control system. There is also a ci script for building the images and pushing them to a container registry and deploying the final outputs.
-The inputs are owl ontologies, chowlk diagrams and shacl shapes and output are\todo{see workflow definition} hosted in their own repository.
-Workflow execution can either happen locally or in a ci environment.\todo{add benefits from architectural decisions}
+A workflow engine manages the containers' life cycle and executes the applications and pipes the inputs and outputs between the processes.
+The pipeline process steps, with their corresponding commands to execute, their executing containers, inputs and outputs are defined in a workflow definition file.
+Each application container is based on a image for which a configuration file exists.
+There is a container for OntoFlow itself, which has all the dependencies necessary for running the workflow engine.
+The images are hosted in a container registry.
+A continuous integration script builds the images and pushes them to the container registry.
+Those file are managed inside a version control system.
 
-The pipeline was implemented as an nextflow workflow and Docker was choosen as the container engine.
+The diagrams and files defining the ontology are also hosted in a repository.
+OntoFlow provides a continuous integration script, which triggers when a change in the ontology repository occurs.
+When triggered the OntoFlow container is started with ontology repository mounted.
+Inside the container the workflow engine starts the workflow with the files from the ontology repository as inputs. \todo{shacl shapes}
+Each process step is then executed in its defined application container.
+The final outputs are deployed to their target environment.
+
+
+The pipeline was implemented as an nextflow workflow and Docker was chosen as the container engine.
 For each tool used in a process step a docker image was created, if not one already existed.
 Here is a list of the used tools and their tasks:
 
@@ -282,19 +294,24 @@ Here is a list of the used tools and their tasks:
   \item Chowlk: Converts ontology diagram to OWL-File.
   \item pySHACL: Validates ontology against SHACL shapes.
   \item Bubastis: Creates a semantic diff to an older ontology version.
-  \item Jena Riot: Serializises and merges RDF-Files.
+  \item Jena Riot: Serialises and merges RDF-Files.
   \item sparql-integrate: Extracts and manipulates Data in RDF-Files.\todo{versioning}
   \item pyLODE: Create ontology documentation in HTML.
 \end{itemize}
 
 Chowlk provides a library of owl diagram elements for draw.io, which is an open source diagram software.
-Ontoflow can be run on any linux system with Java and Docker, it realizes it full potential in combination with the Gitlab ecosystem.
-With the ontology files hosted in a Gitlab repository, the ontology can be edited collaborativly. Because draw.io can use a Gitlab repository as a storage backend collaborative editing can be achived without the user beeing exposed explicitly to git.
+OntoFlow can be run on any Linux system with Java and Docker installed.
+It realizes it full potential in combination with Gitlab.
+With the ontology files hosted in a Gitlab repository, the ontology can be edited collaboratively. 
+Draw.io can use a Gitlab repository as its storage backend.
+This also works when multiple persons are editing the same diagram.
+This results in collaborative editing without the user being exposed to git.
 After a change to the ontology a Gitlab continuous integration job is triggered, which runs the workflow and publishes its resulting artifact package as an Gitlab Page.
 
 
-Github also hosts Ontoflow and the tool images in its container registry.
+Gitlab also hosts Ontoflow and the tool images in its container registry.
 
+\todo{add benefits from architectural decisions}
 
 \begin{figure}[ht]
   \centering
