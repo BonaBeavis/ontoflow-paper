@@ -234,12 +234,14 @@ Main Requirement &
   
 \subsection{Workflow Structure}
 \todo{remove implementation details}
-Inputs for the workflow are provided by the user\todo{user?} and OntoFlow.
-The user provides ontology diagrams, ontology files and validation shapes\todo{shapes}.
-Validation shapes are also provided by OntoFlow, those validate the ontology against a set of shapes, which check for best practices.\todo{right place for descrining what the shapes do?}
-Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.\todo{sentence too long}
+\todo{links}
+\todo{order of chapters}
+Inputs for the workflow are provided by the ontology developer and OntoFlow.
+The ontology developer provides ontology diagrams, OWL files and validation shapes.
+A ontology diagram is visual representation of an ontology\todo{}
 The OWL files define ontologies with the Web Ontology Language (OWL) and are serialized as a RDF file.
-The user can also provide SHACL shapes for validating the ontology.\todo{example}
+The ontology is validated against the validation shapes to ensure satisfies a set of conditions.
+A set of validation shapes, which test the ontology for best practices\todo{enumerate}, are supplied by OntoFlow.
 
 First process step is the transformation of the Chowlk diagrams to OWL files and merging those with those OWL files provided by the user.
 The resulting ontology is the input for the following parallel processing steps.
@@ -266,6 +268,7 @@ The serializations, documentation, validation reports and semantic diff compose 
 
 \subsection{Implementation and Architecture}
 
+\todo{reference requirements}
 The architectural model for OntoFlow is a pipeline consisting of processes where each process takes inputs, transform the inputs and outputs the results.
 Inputs and output from the processes are interconnected.
 Each process's transformation is applied to the inputs by application program with a command-line interface.
@@ -301,16 +304,15 @@ Following is a list of the used tools and their tasks:
 
 Chowlk provides a library of owl diagram elements for draw.io, which is an open source diagram software.
 OntoFlow can be run on any Linux system with Java and Docker installed.
-It realizes it full potential in combination with Gitlab.
-With the ontology files hosted in a Gitlab repository, the ontology can be edited collaboratively. 
-Draw.io can use a Gitlab repository as its storage backend.
+Which is useful for prototyping and developing OntoFlow, or for getting a quick overview for an ontology by creating its documentation.
+OntoFlow realizes it full potential in combination with Gitlab.
+OntoFlow itself and the ontology, which is developed, are hosted on Gitlab.
+Gitlab's container registry hosts the tool images, its continuous integration infrastructure is utilized for running OntoFlow and the Ontology Artifact Package of an ontology is hosted as a Gitlab page.
+With the ontology files hosted in a Gitlab repository, it is possible to edit the ontology collaboratively, because Draw.io can use a Gitlab repository as its storage backend.
 This also works when multiple persons are editing the same diagram.
-This results in collaborative editing without the user being exposed to git.
-After a change to the ontology a Gitlab continuous integration job is triggered, which runs the workflow and publishes its resulting artifact package as an Gitlab Page.
+This gives collaborative editing without the user being exposed to git.
 
-
-Gitlab also hosts Ontoflow and the tool images in its container registry.
-
+Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology, defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.\todo{sentence too long}
 \todo{add benefits from architectural decisions}
 
 \begin{figure}[ht]
@@ -330,6 +332,8 @@ Each processes' transformation is performed
   - reproducible
 
 \section{Evaluation}
+
+/todo{copperdigital as an example}
 
 \subsection{Evaluation Setup}
 - dataset description LOV (How many etc.)
