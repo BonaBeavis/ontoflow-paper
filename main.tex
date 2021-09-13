@@ -37,9 +37,12 @@
 %% The first command in your LaTeX source must be the \documentclass command.
 \documentclass[sigconf]{acmart}
 
+\usepackage{pgfplotstable}
+
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tabularx}
 \usepackage{pgfplots}
+\usetikzlibrary{calc}
 
 %%
 %% \BibTeX command to typeset BibTeX logo in the docs
@@ -370,20 +373,70 @@ Fulfillment \\ \midrule
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 
-
 \begin{tikzpicture}
-  \begin{axis}[
-    ]
-    \addplot[
-        only marks,
-        scatter,
+
+\begin{axis} [
+    name=ax1,
+    xlabel=triples,
+    ylabel=s,
+  ]
+  \addplot [
+    only marks,
+    mark size=1pt
+  ]
+  table [
+    x=count_triples,
+    y=runtime,
+    col sep=semicolon,
+  ] {data.csv};
+  \addplot [
+    no markers,dashed, red
+  ]
+  table [
+    x=count_triples,
+    y={create col/linear regression={y=runtime}},
+    col sep=semicolon,
+  ] {data.csv};
+
+  % define coordinates at bottom left and top left of rectangle
+  \coordinate (c1) at (axis cs:-1000,60);
+  \coordinate (c2) at (axis cs:10000,60);
+  % draw a rectangle
+  \draw (c1) rectangle (axis cs:10000,10);
+\end{axis}
+
+\begin{axis} [
+    name=ax2,
+    xlabel=triples,
+    ylabel=s,
+    xmin=-1000,xmax=10000,
+    ymin=10,ymax=60,
+    % place second axis relative to first one
+    % anchor is south west
+    at={($(ax1.south west)+(0,-8cm)$)},
+  ]
+  \addplot [
+      only marks,
+      mark size=1pt
     ]
     table [
       x=count_triples,
       y=runtime,
       col sep=semicolon,
     ] {data.csv};
-  \end{axis}
+\addplot [
+    no markers,dashed, red
+  ]
+  table [
+    x=count_triples,
+    y={create col/linear regression={y=runtime}},
+    col sep=semicolon,
+  ] {data.csv};
+
+\end{axis}
+% draw dashed lines from rectangle in first axis to corners of second
+\draw [dashed] (c1) -- (ax2.north west);
+\draw [dashed] (c2) -- (ax2.north east);
 \end{tikzpicture}
 
 \section{Conclusion}\todo{nfcore!!}
