@@ -39,9 +39,11 @@
 
 \usepackage{pgfplotstable}
 
+\setlength {\marginparwidth }{2cm}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tabularx}
 \usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
 \usetikzlibrary{calc}
 
 %%
@@ -238,8 +240,8 @@ Main Requirement &
   \begin{tabular}[c]{@{}l@{}}It should be possible to quickly generate an ontology, \\ validate it and create its documentations\end{tabular} \\\\
 \hline
 \end{tabular}
-\label{tab:req}
 \caption{Requirements for OntoFlow}
+\label{tab:req}
 \end{table*}
 
 The goal of OntoFlow is the best possible optimization and automation of ontology development processes which typically currently involve a great number of labor-intensive tasks, such as modeling, serialization, updating testing and documentation. Due to the fact that such development processes are carried out by several stakeholders, the workflow environment should foster a collaborative and decentralized way of working.\\
@@ -252,7 +254,7 @@ Table \ref{tab:req} gives an overview of the requirements detailed in the above 
   \centering
   \includegraphics[scale = 0.4]{workflow.png}
   \caption{OntoFlow Workflow}
-  \label{fig2}
+  \label{fig:workflow}
 \end{figure}
 
 Inputs for the workflow are provided by the ontology developer and OntoFlow.
@@ -277,7 +279,7 @@ The serializations, documentation, validation reports and the semantic differenc
   \centering
   \includegraphics[scale=0.4]{architecture.png}
   \caption{OntoFlow Architecture}
-  \label{fig2}
+  \label{fig:architecture}
 \end{figure}
 
 The architectural model for OntoFlow is a pipeline consisting of processes where each process takes inputs, transform the inputs and outputs the results.
@@ -342,10 +344,9 @@ Fulfillment \\ \midrule
   RQ2.1 GUI support & \\
   RQ2.2 Easy execution, modification\\ and re-use of ontology workflows & \\
   RQ2.3 Fast execution of ontology workflows & 
-\hline
 \end{tabular}
-\label{tab:eval}
 \caption{Requirements for OntoFlow}
+\label{tab:eval}
 \end{table*}
 
 %datasets:
