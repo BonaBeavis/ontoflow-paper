@@ -101,6 +101,9 @@
 \author{Lisa Wenige}
 \authornotemark[1]
 \email{wenige@infai.org}
+\author{Lars-Peter Meyer}
+\authornotemark[1]
+\email{meyer@infai.org}
 \affiliation{%
   \institution{Institute for Applied Informatics}
   \streetaddress{Goerdelerring 9}
@@ -180,6 +183,10 @@ keywords:
   \item we need modern tools for ontology engineering to help a broader range of participants including non-technical domain experts
 \end{itemize}
 
+Currently there is quite a lot of effort taken to use the gain from semantic modeling in different areas. This includes biomedicine, finance, engineering, law, and cultural heritage [Tudorache2020] \todo{doi 10.3233/SW-190382} . But although there is much to get from utilizing and engineering ontologies, modern ontology engineering involves still quite a lot of labour intensive tasks to handle the diverse tools for ingestion of domain knowledge, testing and documenting. In addition to that many of the tools available are difficult to handle for domain experts without IT or semantic web background.
+
+In software engineering automation with workflow pipelines step in here, especially with continuous integration and deployment (CI/CD) pipelines \todo{Humble2010 ISBN 9780321670229}. This eases the process from basic checks over compilation and testing to deploying and removes the need for time consuming repetitive and error prone manual work. For handling the diverse many software tools, containerization can step in. The use of Open Containers Initiative (OCI) Containers and Container Images helps with bundling and updating software tools with all their dependencies.
+
 \section{Related Work}
 Continuous development and integration strategies have become an indispensable part of modern software engineering.
 They largely consist of clean up operations, compilation of executables, application of automated tests, and the deployment of the finished application, including generation of appropriate documentation if necessary. Part of these processes is the continuous checking of any updates/ new versions as well as the triggering of troubleshooting activities if problems occur \cite{fowler}.
@@ -193,7 +200,7 @@ But although software applications are already available that support collaborat
 \todo{https://www.nature.com/articles/s41587-020-0439-x}
 
 \section{Ontology Development Workflow}
-
+\label{sec:ontoflow}
 \subsection{Requirements}
 
 % Please add the following required packages to your document preamble:
@@ -221,11 +228,8 @@ Main Requirement &
   RQ2.1 GUI support &
   \begin{tabular}[l]{@{}l@{}}Support of ontology modelling through \\ a GUI\end{tabular} \\\\
  &
-  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution of ontology\\ workflows\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution, modification\\ and re-use of ontology workflows\end{tabular} &
   \begin{tabular}[c]{@{}l@{}}Domain experts (with little to no IT background)\\ should be able to trigger ontology workflows\end{tabular} \\\\
- &
-  \begin{tabular}[c]{@{}l@{}}RQ2.3 Easy modification and\\ re-use of ontology workflows\end{tabular} &
-  \begin{tabular}[c]{@{}l@{}}It should be easy to modify and re-use existing\\ ontology workflows\end{tabular} \\\\
 \hline
 \end{tabular}
 \label{tab:req}
@@ -324,8 +328,23 @@ They are defined with elements from the Chowlk Ontology Visual Notation library,
 \section{Evaluation}
 
 \todo{copperdigital as an example}
+For the evaluation, it is important to verify to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by the Ontoflow approach. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the Ontoflow workflow. We make the Ontoflow code and documentation available on Github, so that anyone interested can use the software and see for themselves how the tool works. Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool Ontoflow
 
-\subsection{Evaluation Setup}
+\begin{table*}[htb]
+\begin{tabular}{@{}ll@{}}
+\toprule
+Requirement &
+Fulfillment \\ \midrule
+  RQ1.1 Ontology serialization & \\
+  RQ1.2 Ontology Validation & \\
+  RQ1.3 Ontology Postprocessing & \\
+  RQ1.3 Ontology Publication and Documenation & \\
+  RQ2.1 GUI support & \\
+\hline
+\end{tabular}
+\label{tab:req}
+\caption{Requirements for OntoFlow}
+\end{table*}
 
 - dataset description LOV (How many etc.)
 - applicabilty to a broad range of ontologies 
@@ -351,7 +370,6 @@ They are defined with elements from the Chowlk Ontology Visual Notation library,
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 
-\subsection{Results}
 
 \begin{tikzpicture}
   \begin{axis}[
