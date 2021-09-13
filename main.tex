@@ -378,12 +378,18 @@ A linear regression model was a good fit to model the relationship with a coeffi
 %=> W3C Reference:
 %"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
 
+\noindent
+
 \begin{tikzpicture}
 
 \begin{axis} [
     name=ax1,
-    xlabel=triples,
-    ylabel=s,
+    xlabel=triples (n),
+    ylabel=duration (s),
+    xticklabel style={
+      /pgf/number format/fixed,
+    },
+    scaled x ticks=false
   ]
   \addplot [
     only marks,
@@ -395,7 +401,7 @@ A linear regression model was a good fit to model the relationship with a coeffi
     col sep=semicolon,
   ] {data.csv};
   \addplot [
-    no markers,dashed, red
+    no markers, red
   ]
   table [
     x=count_triples,
@@ -404,21 +410,25 @@ A linear regression model was a good fit to model the relationship with a coeffi
   ] {data.csv};
 
   % define coordinates at bottom left and top left of rectangle
-  \coordinate (c1) at (axis cs:-1000,60);
-  \coordinate (c2) at (axis cs:10000,60);
+  \coordinate (c1) at (axis cs:-1000,50);
+  \coordinate (c2) at (axis cs:11000,50);
   % draw a rectangle
-  \draw (c1) rectangle (axis cs:10000,10);
+  \draw (c1) rectangle (axis cs:11000,15);
 \end{axis}
 
 \begin{axis} [
     name=ax2,
-    xlabel=triples,
-    ylabel=s,
-    xmin=-1000,xmax=10000,
-    ymin=10,ymax=60,
+    xlabel=triples (n),
+    ylabel=duration (s),
+    xmin=-1000,xmax=11000,
+    ymin=15,ymax=50,
     % place second axis relative to first one
     % anchor is south west
-    at={($(ax1.south west)+(0,-8cm)$)},
+    at={($(ax1.south west)+(0,-7cm)$)},
+    xticklabel style={
+      /pgf/number format/fixed,
+    },
+    scaled x ticks=false
   ]
   \addplot [
       only marks,
