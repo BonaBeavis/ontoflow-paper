@@ -231,8 +231,11 @@ Main Requirement &
   RQ2.1 GUI support &
   \begin{tabular}[l]{@{}l@{}}Support of ontology modelling through \\ a GUI\end{tabular} \\\\
  &
-  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution, modification\\ and re-use of ontology workflows\end{tabular} &
-  \begin{tabular}[c]{@{}l@{}}Domain experts (with little to no IT background)\\ should be able to trigger ontology workflows\end{tabular} \\\\
+  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution ontology workflows\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}Domain experts (with little to no IT background)\\ should be able to trigger ontology workflows \\ execute and modify them easily \end{tabular} \\\\
+ & 
+ \begin{tabular}[c]{@{}l@{}}RQ2.3 Fast execution of ontology workflows\end{tabular} &
+  \begin{tabular}[c]{@{}l@{}}It should be possible to quickly generate an ontology, \\ validate it and create its documentations\end{tabular} \\\\
 \hline
 \end{tabular}
 \label{tab:req}
@@ -243,8 +246,6 @@ The goal of OntoFlow is the best possible optimization and automation of ontolog
 Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a web server for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware. Because there is no established methodology for ontology development and it happens in diverse environments, OntoFlow must be flexible and facilitate easy modifications to accommodate for different needs.\\
 Table \ref{tab:req} gives an overview of the requirements detailed in the above sections.
 
-\todo{shacl}
-  
 \subsection{Workflow Structure}
 
 \begin{figure}[ht]
@@ -277,9 +278,8 @@ The serializations, documentation, validation reports and the semantic differenc
   \includegraphics[scale=0.4]{architecture.png}
   \caption{OntoFlow Architecture}
   \label{fig2}
-\end{figure}\todo{colors}
+\end{figure}
 
-\todo{reference requirements}
 The architectural model for OntoFlow is a pipeline consisting of processes where each process takes inputs, transform the inputs and outputs the results.
 Inputs and output from the processes are interconnected.
 Each process's transformation is applied to the inputs by application program with a command-line interface.
@@ -309,7 +309,7 @@ Following is a list of the used tools and their tasks:
   \item pySHACL: Validates ontology against SHACL shapes.
   \item Bubastis\footnote{https://github.com/EBISPOT/bubastis}: Creates a semantic diff to an older ontology version.
   \item Jena Riot\footnote{https://jena.apache.org/documentation/io/}: Serialises and merges RDF-Files.
-  \item sparql-integrate\footnote{https://github.com/SmartDataAnalytics/RdfProcessingToolkit}: Extracts and manipulates Data in RDF-Files.\todo{versioning}
+  \item sparql-integrate\footnote{https://github.com/SmartDataAnalytics/RdfProcessingToolkit}: Extracts and manipulates Data in RDF-Files.
   \item pyLODE: Create ontology documentation in HTML.
 \end{itemize}
 
@@ -326,39 +326,43 @@ This gives collaborative editing without the user being exposed to git.
 Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology.
 They are defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.
 
-\todo{add benefits from architectural decisions}
-
 \section{Evaluation}
 
-\todo{copperdigital as an example}
-For the evaluation, it is important to verify to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by the Ontoflow approach. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the Ontoflow workflow. We make the Ontoflow code and documentation available on Github, so that anyone interested can use the software and see for themselves how the tool works. Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool Ontoflow
+For the evaluation, it is important to verify to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by the OntoFlow approach. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the OntoFlow workflow. We make the OntoFlow code and documentation available on Gitlab, so that anyone interested can use the software and see for themselves how the tool works \url{\footnote{https://gitlab.com/kupferdigital/ontoflow}}. Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool OntoFlow
 
 \begin{table*}[htb]
 \begin{tabular}{@{}ll@{}}
 \toprule
 Requirement &
 Fulfillment \\ \midrule
-  RQ1.1 Ontology serialization & \\
-  RQ1.2 Ontology Validation & \\
+  RQ1.1 Ontology Serialization & The ontology is merged with Jena Riot and can be serialized in any of the typical RDF formats (e.g., .owl, .ttl .rdf/xml)\\
+  RQ1.2 Ontology Validation & As an \\
   RQ1.3 Ontology Postprocessing & \\
   RQ1.3 Ontology Publication and Documenation & \\
   RQ2.1 GUI support & \\
+  RQ2.2 Easy execution, modification\\ and re-use of ontology workflows & \\
+  RQ2.3 Fast execution of ontology workflows & 
 \hline
 \end{tabular}
 \label{tab:req}
 \caption{Requirements for OntoFlow}
 \end{table*}
 
-- dataset description LOV (How many etc.)
-- applicabilty to a broad range of ontologies 
 %datasets:
-%-dataset 1:  Chowlk XML collection: https://github.com/oeg-upm/Chowlk/tree/webservice/data
 %-dataset 2: All ontologies from Linked Open Vocabularies (LOV), ca. 700, dumps via
 %https://lov.linkeddata.es/dataset/lov/sparql
+- dataset description LOV (How many etc.)
+We evaluated OntoFlow with the vocabularies from Linked Open Vocabularies (LOV)\todo{cite}. LOV is a catalogue of vocabularies, which describe open data sets on the web.\todo{difference vocab onto}
+\todo{why is this a goog dataset for evaluating ontoflow}
+Each ontology from the data set was processed with OntoFlow and it's processing duration, number of triples and if the processing was successful were logged.
+This was done on a 4-core laptop with a solid state disk.
+From the \todo{count} ontologies \todo{count} were processed successfully.\todo{why did the rest fail}
+\todo{figure} shows the relationship between the triple count in a ontology and the duration OntoFlow took to process the ontology.
+It took OntoFlow at least 17 seconds to process an ontology and the maximum processing duration was 314 for an ontology with 103098 triples.
+A linear regression model was a good fit to model the relationship with a coefficient of determination of 0.91.
+\todo{what do min and max times mean}
+
 % for each of the ontologies
-%=>run the entire workflow
-%=>log the processing time
-%log success/failure
 %have a look at each processing step individually and answer the following
 %questions
 %how many workflows failed here?
@@ -437,19 +441,31 @@ Fulfillment \\ \midrule
 % draw dashed lines from rectangle in first axis to corners of second
 \draw [dashed] (c1) -- (ax2.north west);
 \draw [dashed] (c2) -- (ax2.north east);
-\end{tikzpicture}
+\end{tikzpicture}\todo{axis upper diagram, axis legend, new data with higher resolution, number instead of 10, aspect ration second graph}
 
-\section{Conclusion}\todo{nfcore!!}
-\section{Notes}
-- follow best practices software engineering
-  - github
-  - linting
-  - build process
-  - reuse
+\section{Conclusion}
 
-Long term goal is that OntoFlow assumes to role package managers and build tools have for software development.\todo{also nf-core}
+- applicabilty to a broad range of ontologies 
+- number of triples is not an issue, focus is ontologies not taxonomies
 
-output is not fully integrated to documentation
+OntoFlow eases ontology development.
+Set up GitLab repo with ontology files, copy CI config... done.
+Limitation: URI
+
+\todo{copperdigital as an example}
+
+\section{Outlook}
+
+Improve startup time, with a single container
+Integrate Diff into documentation. (improve pylode)
+Also manage previous ontology versions.
+Follow best practices for publishing (content resolution).
+Develop SHACL shapes for best practises.
+
+Host documentation for all ontologies, add to lov
+
+Further modularize analog to nf-core.
+
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
 \end{document}
