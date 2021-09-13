@@ -330,8 +330,7 @@ They are defined with elements from the Chowlk Ontology Visual Notation library,
 
 \section{Evaluation}
 In order to validate our approach, we evaluated to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by OntoFlow. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the OntoFlow workflow. We made the OntoFlow code and documentation available on Gitlab, so that anyone interested can use the software and see how the tool works \footnote{https://gitlab.com/kupferdigital/ontoflow}. On top of that, we 
-verified the proper execution of OntoFlow by testing it on a benchmark dataset of publicly available ontologies. We obtained this benchmark dataset from the ontology repository \textit{Linked Open Vocabularies} and downloaded the corresponding ontology files.\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}} We decided to use LOV as a reference point for benchmark generation as it is one of the most comprehensive collections of ontologies and vocabularies throughout the Semantic Web \cite{lov}. In total, we extracted 988 files from the LOV registry\footnote{\url{https://gitlab.com/kupferdigital/ontoflow-benchmark/-/tree/main/ontologies}}. From this collection, we determined those files that are lightweight taxonomies and vocabularies (e.g., SKOS thesauri) and removed them from the benchmark as they are not ontologies in a strict sense. In this way, 799 actual ontologies remained. 
-
+verified the proper execution of OntoFlow by testing it on a benchmark dataset of publicly available ontologies. We obtained this benchmark dataset from the ontology repository \textit{Linked Open Vocabularies} and downloaded the corresponding ontology files.\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}} We decided to use LOV as a reference point for benchmark generation as it is one of the most comprehensive collections of ontologies and vocabularies throughout the Semantic Web \cite{lov}. In total, we extracted 988 files from the LOV registry\footnote{\url{https://gitlab.com/kupferdigital/ontoflow-benchmark/-/tree/main/ontologies}}. From this collection, we determined those files that are lightweight taxonomies and vocabularies (e.g., SKOS thesauri) and removed them from the benchmark as they are not ontologies in a strict sense. In this way, 799 actual ontologies remained. We counted the number of triples of the ontologies and processed each ontology with OntoFlow. We logged the processing time and information on whether the workflow completed successfully. Workflow execution and time measurements were run on a 4-core laptop with a solid state disk. From the \todo{count} ontologies \todo{count} were processed successfully.\todo{why did the rest fail}
 
 Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool OntoFlow
 
@@ -352,9 +351,7 @@ Fulfillment \\ \midrule
 \label{tab:eval}
 \end{table*}
 
-Each ontology from the data set was processed with OntoFlow and it's processing duration, number of triples and if the processing was successful were logged.
-This was done on a 4-core laptop with a solid state disk.
-From the \todo{count} ontologies \todo{count} were processed successfully.\todo{why did the rest fail}
+
 \todo{figure} shows the relationship between the triple count in a ontology and the duration OntoFlow took to process the ontology.
 It took OntoFlow at least 17 seconds to process an ontology and the maximum processing duration was 314 for an ontology with 103098 triples.
 A linear regression model was a good fit to model the relationship with a coefficient of determination of 0.91.
