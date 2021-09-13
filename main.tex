@@ -329,18 +329,21 @@ Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology.
 They are defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.
 
 \section{Evaluation}
+In order to validate our approach, we evaluated to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by OntoFlow. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the OntoFlow workflow. We made the OntoFlow code and documentation available on Gitlab, so that anyone interested can use the software and see how the tool works \footnote{https://gitlab.com/kupferdigital/ontoflow}. On top of that, we 
+verified the proper execution of OntoFlow by testing it on a benchmark dataset of publicly available ontologies. We obtained this benchmark dataset from the ontology repository \textit{Linked Open Vocabularies} and downloaded the corresponding ontology files.\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}} We decided to use LOV as a reference point for benchmark generation as it is one of the most comprehensive collections of ontologies and vocabularies throughout the Semantic Web \cite{lov}. In total, we extracted 988 files from the LOV registry\footnote{\url{https://gitlab.com/kupferdigital/ontoflow-benchmark/-/tree/main/ontologies}}. From this collection, we determined those files that are lightweight taxonomies and vocabularies (e.g., SKOS thesauri) and removed them from the benchmark as they are not ontologies in a strict sense. In this way, 799 actual ontologies remained. 
 
-For the evaluation, it is important to verify to what extent the requirements formulated in Section \ref{sec:ontoflow} are met by the OntoFlow approach. With regard to the functional requirements, corresponding proof of successful functioning is provided through the implementation and successful testing of the trouble-free execution of the individual components of the OntoFlow workflow. We make the OntoFlow code and documentation available on Gitlab, so that anyone interested can use the software and see for themselves how the tool works \footnote{https://gitlab.com/kupferdigital/ontoflow}. Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool OntoFlow
+
+Table \ref{tab:eval} gives an overview of the original requirements and their realization in the software tool OntoFlow
 
 \begin{table*}[htb]
 \begin{tabular}{@{}ll@{}}
 \toprule
 Requirement &
 Fulfillment \\ \midrule
-  RQ1.1 Ontology Serialization & The ontology is merged with Jena Riot and can be serialized in any of the typical RDF formats (e.g., .owl, .ttl .rdf/xml)\\
-  RQ1.2 Ontology Validation & As an \\
-  RQ1.3 Ontology Postprocessing & \\
-  RQ1.3 Ontology Publication and Documenation & \\
+  RQ1.1 Ontology Serialization & Merging and serialization with Jena Riot\\
+  RQ1.2 Ontology Validation & Testing with pySHACL\\
+  RQ1.3 Ontology Postprocessing & Postprocessing (e.g., adding of versioning data) with SparqlIntegrate\\
+  RQ1.3 Ontology Publication and Documenation & HTML Documentation with pyLODE and publication with GitLab pages\\
   RQ2.1 GUI support & \\
   RQ2.2 Easy execution, modification\\ and re-use of ontology workflows & \\
   RQ2.3 Fast execution of ontology workflows & 
@@ -349,12 +352,6 @@ Fulfillment \\ \midrule
 \label{tab:eval}
 \end{table*}
 
-%datasets:
-%-dataset 2: All ontologies from Linked Open Vocabularies (LOV), ca. 700, dumps via
-%https://lov.linkeddata.es/dataset/lov/sparql
-- dataset description LOV (How many etc.)
-We evaluated OntoFlow with the vocabularies from Linked Open Vocabularies (LOV)\todo{cite}. LOV is a catalogue of vocabularies, which describe open data sets on the web.\todo{difference vocab onto}
-\todo{why is this a goog dataset for evaluating ontoflow}
 Each ontology from the data set was processed with OntoFlow and it's processing duration, number of triples and if the processing was successful were logged.
 This was done on a 4-core laptop with a solid state disk.
 From the \todo{count} ontologies \todo{count} were processed successfully.\todo{why did the rest fail}
@@ -363,23 +360,7 @@ It took OntoFlow at least 17 seconds to process an ontology and the maximum proc
 A linear regression model was a good fit to model the relationship with a coefficient of determination of 0.91.
 \todo{what do min and max times mean}
 
-% for each of the ontologies
-%have a look at each processing step individually and answer the following
-%questions
-%how many workflows failed here?
-%what was the average processing time for this workflow step?
-%STEP 1: TURTLE GENERATION (dataset 1 only)
-%STEP 2: DOCUMENTATION (dataset 1 & 2)
-%STEP 3: SERIALIZATION (dataset 1 & 2)
-%STEP 4: ONTOLOGY TESTS (dataset 1 & 2)
-%for dataset 4 only: evaluate ontology tests:
-%how many schema violations (owl,rdfs) where there? (rdfunit flag -s)
-%how many metadata errors where there:
-%=> W3C Reference:
-%"One common set of additional tags that could reasonably be included here are some of the standard Dublin Core metadata tags. The subset includes those that take simple types or strings as values. Examples include Title, Creator, Description, Publisher, and Date" (W3c OWL) + owl:versionInfo
-
 \noindent
-
 \begin{tikzpicture}
 
 \begin{axis} [
