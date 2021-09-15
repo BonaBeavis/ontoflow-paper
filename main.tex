@@ -42,6 +42,7 @@
 \setlength {\marginparwidth }{2cm}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tabularx}
+\usepackage{multirow}
 \usepackage{pgfplots}
 \usepackage{enumitem}
 \pgfplotsset{compat=1.17}
@@ -204,41 +205,38 @@ So although software applications are already available that support collaborati
 % Please add the following required packages to your document preamble:
 % \usepackage{booktabs}
 % \usepackage{multirow}
+\renewcommand{\arraystretch}{1.3}
 \begin{table*}[htb]
-\begin{tabular}{@{}lll@{}}
-\toprule
-Main Requirement &
-  Sub-Requirement &
-  Explanation \\ \midrule
-\textbf{RQ1 ODP Automation} &
-  RQ1.1 Ontology serialization &
-  \begin{tabular}[l]{@{}l@{}}Ontology artifacts can be automatically \\ serialized in common RDF formats \\ (e.g., RDF/XML, Turtle or NTRIPLES\end{tabular} \\\\
- & 
-  RQ1.2 Ontology Validation &
-  \begin{tabular}[l]{@{}l@{}}Automatic testing of ontology artifacts\\ is integrated\end{tabular} \\\\
- &
-  RQ1.3 Ontology Postprocessing &
-  \begin{tabular}[l]{@{}l@{}}Intgrating automatic postprocessing \\ operations, such as updating meta-information, \\ version control or diff detection\end{tabular} \\\\
- &
-  \begin{tabular}[l]{@{}l@{}}RQ1.4 Ontology Publication and \\ Documentation\end{tabular} &
-  \begin{tabular}[l]{@{}l@{}}Automatic deployment of ontology artifacts \\ (serialization and HTML documentation) to a server\end{tabular} \\\\
-\textbf{RQ2 High (Re-)Usability} &
-  RQ2.1 GUI support &
-  \begin{tabular}[l]{@{}l@{}}Support of ontology modelling through \\ a GUI\end{tabular} \\\\
- &
-  \begin{tabular}[c]{@{}l@{}}RQ2.2 Easy execution ontology workflows\end{tabular} &
-  \begin{tabular}[c]{@{}l@{}}Domain experts (with little to no IT background)\\ should be able to trigger ontology workflows\end{tabular} \\\\
- & 
- \begin{tabular}[c]{@{}l@{}}RQ2.3 Fast execution of ontology workflows\end{tabular} &
-  \begin{tabular}[c]{@{}l@{}}It should be possible to quickly generate an ontology, \\ validate it and create its documentations\end{tabular} \\\\
-   &
-  \begin{tabular}[c]{@{}l@{}}RQ2.4 Easy modification of ontology workflows\end{tabular} &
-  \begin{tabular}[c]{@{}l@{}}Ontology developers should be able to modify them easily to suit their individual requirements \end{tabular} \\\\
+  \begin{tabular}{|p{0.25\textwidth}|p{0.75\textwidth}|}
+  \hline
+  \multicolumn{2}{|l|}{\textbf{RQ1 ODP Automation}} \\
+  \hline
+  RQ1.1 Ontology Serialization & Ontology artifacts can be automatically serialized in common RDF formats \\
+  \hline
+  RQ1.2 Ontology Validation & Automatic testing of ontology artifacts is integrated \\
+  \hline
+  RQ1.3 Ontology Postprocessing & Integrating automatic postprocessing operations, such as version control or diff detection \\
+  \hline
+  RQ1.4 Ontology  Documentation & Automatic creation of a HTML ontology documentation \\
+  \hline
+  RQ1.5 Ontology Publication & Automatic deployment of ontology artifacts (serialization and HTML documentation) to a server \\
+  \hline
+  \hline
+  \multicolumn{2}{|l|}{\textbf{RQ2 High (Re-)Usability}} \\
+  \hline
+  RQ2.1 GUI support & Support of ontology modelling through a graphical user interface \\
+  \hline
+  RQ2.2 Easy Execution & Domain experts (with little to no IT background) should be able to trigger ontology workflows \\
+  \hline
+  RQ2.3 Fast Execution & It should be possible to quickly generate an ontology, validate it and create its documentations \\
+  \hline
+  RQ2.4 Easy Modification & Ontology developers should be able to modify them easily to suit their individual requirements \\
 \hline
-\end{tabular}
+\end{tabular*}
+
 \caption{Requirements for OntoFlow}
 \label{tab:req}
-\end{table*}\todo{smaller, lines to the left}
+\end{table*}\todo{smaller, lines to the left, add changed requirements}
 
 The goal of OntoFlow is the best possible optimization and automation of ontology development processes which typically currently involve a great number of labor-intensive tasks, such as modeling, serialization, updating testing and documentation. Due to the fact that such development processes are carried out by several stakeholders, the workflow environment should foster a collaborative and decentralized way of working.\\
 Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a web server for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware. Because there is no established methodology for ontology development and it happens in diverse environments, OntoFlow must be flexible and facilitate easy modifications to accommodate for different needs.\\
@@ -346,8 +344,8 @@ We obtained this benchmark dataset from the ontology repository \textit{Linked O
   \centering
   \includegraphics[width=\columnwidth]{copperkey.png}
   \caption{Diagram for the Copperdigital Ontology}
-  \label{fig:copperkey}\todo{remove metadata}
-\end{figure}
+  \label{fig:copperkey}
+\end{figure}\todo{remove metadata}
 
 \item \textit{RQ2.1 GUI support:} The ontology can be build in draw.io with diagram elements from the Chowlk diagram element library, which are extensively documented. \ref{fig:copperkey} shows a diagram which models a part of the copperdigital ontology. Because the Chowlk diagram models OWL and not a general RDF graph, it is not possible to model all aspects of the ontology with a diagram. Metadata like provenance, examples for classes or comments have to be defined in a additional RDF file.
 \item \textit{RQ2.2 Easy execution of ontology workflows:} When run as GitLab CI Job the execution happens automatically when draw.io saves the ontology diagram. Setting this automation up is done by copying a CI config file to the ontology repository. Running OntoFlow locally is more involved, because Java, Docker and Nextflow have to be installed and OntoFlow is triggered by a CLI command.
