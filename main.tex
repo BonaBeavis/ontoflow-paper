@@ -125,7 +125,7 @@
 %% other information printed in the page headers. This command allows
 %% the author to define a more concise list
 %% of authors' names for this purpose.
-\renewcommand{\shortauthors}{Dziwis and Wenige et al.}
+\renewcommand{\shortauthors}{Dziwis, Wenige and Meyer}
 
 %%
 %% The abstract is a short summary of the work to be presented in the
@@ -192,16 +192,10 @@ Likewise, in the wake of ever-growing data volumes and increased relevance of da
 \cite{cirulli, klimek, kucera, meissner, rojas, roman, stadler, dataid}. Typically, CI mechanisms for data collections involve operations such as crawling, linking, or data transformation. These processes are usually executed automatically and, aside from the effort of creating specifications for data conversion, are little interrupted by user interactions and manual intervention. If people work with appropriate software tools in this context, they are mostly data scientists or software engineers.\\
 This modus operandi differs from the determining factors in ontology development processes. The creation of an ontology usually involves several experts with diverse backgrounds and different levels of technical expertise. Therefore, an effective ontology development environment/pipeline has to foster collaboration as well as provide a graphical editor in order to effectively support development processes. By this means, even domain experts with little IT expertise can actively take part in the creation of ontologies.\\
 Ontology editors such as Protégé \cite{protege}, Vocol \cite{halilaj} or WebVOWL \cite{lohmann} are already established software tools for ontology development and visualisation. Meanwhile, other applications in this area focus more on aspects of collaborative and version-based storage of ontologies so that changes can be managed decentrally and tracked over time. Software tools, such as Ontoology \cite{alobaid} or the QuitStore \cite{arndt} provide solutions for these kinds of requirements.\\
-Other tools, such as Oops! focus more on the aspect of quality assurance \cite{poveda} while general purpose RDF data testing suites, such as RDFUnit \cite{rdfunit} or pySHACL\footnote{\url{https://github.com/RDFLib/pySHACL}} can be equally applied for ontology testing. Just as important as quality assurance of ontologies is documentation prepared for end users in a form understandable by users. Software applications that automatically generate ontology documentations are WIDOCO \cite{widoco}, LODE \cite{lode} or pyLODE\footnote{\url{https://github.com/RDFLib/pyLODE}}. They create a HTML representation from ontologies in standard RDF serialization formats.\\
+Other tools, such as Oops! focus more on the aspect of quality assurance \cite{poveda} while general purpose RDF data testing suites, such as RDFUnit \cite{rdfunit} or pySHACL\footnote{\url{https://github.com/RDFLib/pySHACL}} can be equally applied for ontology testing. Just as important as quality assurance of ontologies is documentation prepared for end users in a form understandable by users. Software applications that automatically generate ontology documentations are WIDOCO \cite{widoco}, LODE \cite{lode} or pyLODE\footnote{\url{https://github.com/RDFLib/pyLODE}}. They create a HTML representation from ontologies in standard RDF serialization formats. Widoco even goes beyond the purely automatic creation of ontology documentation by enabling e.g. metadata enrichment or ontology testing. However, it does not provide an easy-to-use interface for domain experts. Moreover, it is a Java-based monolithic software tool, which makes adding or removing applications of other software applications (such as Python-based tools) much more difficult.\\
+The ROBOT framework offers many operations needed for ontology manipulation in the development process, but lacks workflow capabilities. The framework's documentation refers e.g. to the rather technical oriented make\footnote{\url{https://www.gnu.org/software/make/}} tool for more complex needs.\\
+So although software applications are already available that support collaborative ontology development processes and also automate them in parts, there is a lack of approaches as to how these processes can be linked in the sense of a CI pipeline while at the same time ensuring that laymen can actively participate in development through making changes and triggering ontology updates \cite{mungall}.
 
-Widoco 
-- keine gui
-- monolothisch gegen modular
-- gefangen in der java-welt
-
-The ROBOT framework \cite{jackson} offers many operations needed for ontology manipulation in the development process, but lacks workflow capabilities according to \cite{jackson}. The ROBOT documentation refers e.g. to the rather technical oriented make\footnote{\url{https://www.gnu.org/software/make/}} tool for more complex needs.\\
-So although software applications are already available that support collaborative ontology development processes and also automate them in parts, there is a lack of approaches since \cite{mungall} as to how these processes can be linked in the sense of a CI pipeline while at the same time ensuring that laymen can actively participate in development through making changes and triggering ontology updates.
-\todo{https://www.nature.com/articles/s41587-020-0439-x}
 
 \section{Ontology Development Workflow}
 \label{sec:ontoflow}
@@ -276,7 +270,7 @@ OntoFlow picks up the `owl:priorVersion` property and detects semantic differenc
 The serializations, documentation, validation reports and the semantic differences compose the Ontology Artifact Package.
 
 \subsection{Implementation and Architecture}
-
+We made the OntoFlow code and documentation available on GitLab, so that anyone interested can use the software and see how the tool works \footnote{\url{https://gitlab.com/kupferdigital/ontoflow}}. 
 \begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{architecture.png}
@@ -443,28 +437,8 @@ For the evaluation OntoFlow processed hundreds of ontologies, this was achieved 
 
 \section{Conclusion \& Future Work}
 \label{sec:final}
-In this paper we presented the OntoFlow approach that automates ontology development processes. By transferring CI techniques from software engineering to the domain of ontology and data management, we are able to perform previously complex and error-prone engineering tasks faster and without the excessive labor that was previously required. This is made possible by the use of virtualized containers, which take care of different steps of ontology processing and are intelligently linked in order to reduce the need for manual interventions. In this way, the development process consisting of ontology modeling, editing, serialization, validation, and documentation can be realized faster and easier for the end user. In addition, the use of GUI-based open-source modeling software and its integration with a tool for automated shape-to-RDF conversion enables participation of domain experts with little to no Semantic Web expertise. Simultaneous collaborative engagement of different stakeholders in multiple geographically dispersed locations is enabled through Git integration. 
-
-- applicabilty to a broad range of ontologies 
-- number of triples is not an issue, focus is ontologies not taxonomies
-
-OntoFlow eases ontology development.
-Set up GitLab repo with ontology files, copy CI config... done.
-
-We made the OntoFlow code and documentation available on GitLab, so that anyone interested can use the software and see how the tool works \footnote{\url{https://gitlab.com/kupferdigital/ontoflow}}. 
-
-
-Improve startup time, with a single container
- The excecution time could be improved by employing a more capable runner, optimize the containers for size or providing a single container for all process steps.
-Integrate Diff, serializations and previous versions into documentation. (improve pylode)
-Also manage previous ontology versions.
-Follow best practices for publishing (content resolution).
-Develop SHACL shapes for best practises.
-Host documentation for all ontologies, add to lov
-
-Further modularize analog to nf-core.
-
-build rdf enabled piplines with sparql-integrate and nextflow
+We have presented the OntoFlow approach that automates ontology development processes. By transferring CI techniques from software engineering to the domain of ontology and data management, we are able to perform previously complex and error-prone ontology engineering tasks faster and without the excessive labor that was previously required. This is made possible by the use of virtualized containers which take care of different steps of ontology processing are intelligently linked in order to reduce the need for manual interventions. In this way, the development process consisting of ontology modeling, editing, serialization, validation, and documentation can be realized faster and easier for the end user. In addition, the use of GUI-based open-source modeling software and its integration with a tool for automated shape-to-RDF conversion enables participation of domain experts who have little to no Semantic Web expertise. Simultaneous collaborative engagement of different stakeholders in multiple geographically dispersed locations is enabled through Git integration. OntoFlow workflows are executable for any type of ontology and can be set up by configuring a GitLab repository with ontology files and a CI configuration. The containerized bundling of different components implements a modular structure that ensures easy maintainability and reusability. We have tested the correct operation of the approach for the use case of developing a copper ontology. The artifacts automatically generated by the copper ontology workflow can be viewed publicly (see Sect. \ref{sec:eval}). In addition, we have carried out a large-scale evaluation on an ontology benmarck dataset from \textit{Linked Open Vocabularies} to test the scalability, feasibility and applicability of the approach for a wide range of use cases and ontologies. The evaluation has shown that OntoFLow is easily executable for the several hundred ontologies listed in LOV as the worfklow completed successfully for each example in the dataset. In addition, performance analysis has shown that OntoFlow's execution time scales linearly for a growing set of triple statements. It is also positive to note that processing times for small to medium sized ontologies ($< 10,000$ triple statements) are in the range of seconds. In the future we intend to further reduce OntoFlow execution times by applying a single virtualized container for all process steps. 
+We also aim to extend the \textit{git diff}-based version tracking for ontologies so that major changes (e.g. in the class hierarchy) between the current and a previous version are automatically recorded in the documentation. Another line for future research is the conceptualization and implementation of effective and modularized workflows for automatic ontology-based data transformation, post-processing and linking tasks. 
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
