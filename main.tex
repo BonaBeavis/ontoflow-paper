@@ -43,6 +43,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{tabularx}
 \usepackage{pgfplots}
+\usepackage{enumitem}
 \pgfplotsset{compat=1.17}
 \usetikzlibrary{calc}
 
@@ -239,11 +240,9 @@ Main Requirement &
 \label{tab:req}
 \end{table*}
 
-\todo{comprmise domain expert ontology developer}
 The goal of OntoFlow is the best possible optimization and automation of ontology development processes which typically currently involve a great number of labor-intensive tasks, such as modeling, serialization, updating testing and documentation. Due to the fact that such development processes are carried out by several stakeholders, the workflow environment should foster a collaborative and decentralized way of working.\\
 Since the development of ontologies often involves domain experts who have only limited expertise in the field of software and data engineering, OntoFlow should provide a GUI for editing the ontology, while automating the most common tasks (e.g., bash scripting and git interaction) in the background. Due to the limited IT experience of some of the involved stakeholders, it is also vital that workflows can be triggered without in-depth technical understanding of software development or semantic technologies. Reducing the amount of necessary skills for the domain expert is critical, because generally ontology development is a one time job for them. A reusable ontology workflow setup directed at domain experts helps avoiding costs for learning the involved technologies and setting up a development and hosting infrastructure (e.g., running a web server for publishing the ontology and documentation) which - apart from working time - can incur further costs for licences and hardware. Because there is no established methodology for ontology development and it happens in diverse environments, OntoFlow must be flexible and facilitate easy modifications to accommodate for different needs.\\
 Table \ref{tab:req} gives an overview of the requirements detailed in the above sections.
-\todo{fast execution rq needs to be mentioned} 
 
 \subsection{Workflow Structure}
 
@@ -274,7 +273,7 @@ The serializations, documentation, validation reports and the semantic differenc
 
 \begin{figure}[h]
   \centering
-  \includegraphics[scale=0.4]{architecture.png}
+  \includegraphics[width=\columnwidth]{architecture.png}
   \caption{OntoFlow Architecture}
   \label{fig:architecture}
 \end{figure}
@@ -306,7 +305,7 @@ Following is a list of the used tools and their tasks:
 \begin{itemize}
   \item Chowlk Converter\footnote{https://github.com/oeg-upm/Chowlk}: Converts ontology diagram to OWL-File.
   \item pySHACL: Validates ontology against SHACL shapes.
-  \item Bubastis\footnote{https://github.com/EBISPOT/bubastis}: Creates a semantic diff to an older ontology version.
+  \item Bubastis\footnote{https://github.com/EBISPOT/bubastis}: Creates a semantic diff to an older ontology version./todo{cite https://academic.oup.com/bioinformatics/article/26/8/1112/208992}
   \item Jena Riot\footnote{https://jena.apache.org/documentation/io/}: Serialises and merges RDF-Files.
   \item sparql-integrate\footnote{https://github.com/SmartDataAnalytics/RdfProcessingToolkit}: Extracts and manipulates Data in RDF-Files.
   \item pyLODE: Create ontology documentation in HTML.
@@ -315,17 +314,19 @@ Following is a list of the used tools and their tasks:
 Chowlk provides a library of owl diagram elements for draw.io, which is an open source diagram software.
 OntoFlow can be run on any Linux system with Java and Docker installed.
 Which is useful for prototyping and developing OntoFlow, or for getting a quick overview for an ontology by creating its documentation.
-OntoFlow realizes it full potential in combination with GitLab.
+To further automation and remove the of setting up infrastructure OntoFlow is integrated into the GitLab ecosystem.
 OntoFlow itself and the ontology, which is developed, are hosted on GitLab.
 GitLab's container registry hosts the tool images, its continuous integration infrastructure is utilized for running OntoFlow and the Ontology Artifact Package of an ontology is hosted as a GitLab page.
 With the ontology files hosted in a GitLab repository, it is possible to edit the ontology collaboratively, because Draw.io can use a GitLab repository as its storage backend.
 This also works when multiple persons are editing the same diagram.
 This gives collaborative editing without the user being exposed to git.
-
 Chowlk diagrams are Draw.io diagrams of an ontology or parts of an ontology.
 They are defined with elements from the Chowlk Ontology Visual Notation library, exported to a XML-File.
-\todo{explain semantic diff}
-\todo{sparql integrate}
+A linewise diff comes for free through the usage of a git repository.
+For documentation purposes the sematic diff provided by Bubastis gives a more useful overview over the changes between ontology versions.
+Bubastis analyzes and reports on the five major types of ontology changes.
+Before a diff can be created for an ontology, a serialization and the location of the previous ontology version has to be aquired. To achieve this we build a process step where a SPARQL query is defined which is run against the input RDF file by sparql-integrate and outputs the URI locating the previous ontology version.
+\todo{round up and finish}
 
 \section{Evaluation}
 \label{sec:eval}
@@ -333,26 +334,28 @@ In order to validate our approach, we evaluated to what extent the requirements 
 On top of that, we verified the proper execution of OntoFlow by testing it on a large-scale benchmark dataset of publicly available ontologies to be able to make some valid statements about scalability and applicability of our approach for a wide range of domains. 
 We obtained this benchmark dataset from the ontology repository \textit{Linked Open Vocabularies} and downloaded the corresponding ontology files.\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}} We decided to use LOV as a reference point for benchmark generation as it is one of the most comprehensive collections of ontologies and vocabularies throughout the Semantic Web \cite{lov}. In total, we extracted 988 files from the LOV registry\footnote{\url{https://gitlab.com/kupferdigital/ontoflow-benchmark/-/tree/main/ontologies}}. From this collection, we determined those files that are lightweight taxonomies and vocabularies (e.g., SKOS thesauri) and removed them from the benchmark as they are not ontologies in a strict sense. In this way, 799 actual ontologies remained. We counted the number of triples of the ontologies and processed each ontology with OntoFlow. We logged the processing time and additional information on whether the workflow completed successfully. From the \todo{count} ontologies \todo{count} were processed successfully.\todo{why did the rest fail}. Hence, it can be concluded that OntoFlow provides a stable environment for the generation, serialization, validation, postprocessing and publication of ontologies. The successful execution of the workflow for such a large number of ontologies demonstrates that OntoFlow is a valuable software tool for automating ontology development processes for a wide range of application domains. The integration of the individual components from the requirements analysis worked largely without errors, so that it can be assumed that the originally identified functionalities for the automation of ontology development could be successfully integrated. The following list summarizes the OntoFlow functionalities with regard to the previously identified requirements an in light of the insights that were gained during the use case and benchmark evaluations. 
 
-\begin{itemize}
+\begin{itemize}[leftmargin=*]
 \item \textit{RQ1.1 Ontology Serialization:} OntoFlow can output any RDF serialization supported by Apache Riot.
 \item \textit{RQ1.2 Ontology Validation:} The ontology is validated against the user provided and OntoFlow's SHACL shapes and the result is added to the output.
 \item \textit{RQ1.3 Ontology Postprocessing:} While OntoFlow does pick up a prior version from the ontology and outputs a semantic diff, OntoFlow is not able to add the metadata about versioning during a release automatically.
-\item \textit{RQ1.4 Ontology Publication and Documentation:} When set up as a continuous integration Job, OntoFlow completely automates the publishing process. There are two limitations. One is, when published on GitLab pages, the URI has always the schema http(s)://groupname.example.io/projectname\todo{uri sourrounded by "" or ``?}, for a own URI a DNS record for redirecting to GitLab pages has to be set up. Second GitLab pages does not support content negotiation\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}}. With content negotiation an HTTP client can specify which type (or types) of content it would prefer to receive in response, when it attempts to dereference an URI. For example while a browser accessing the ontology's URI would like to receive the ontology's documentation, a script would prefer to receive a machine readable serialization. 
+\item \textit{RQ1.4 Ontology Publication and Documentation:} When set up as a continuous integration Job, OntoFlow completely automates the publishing process. There are two limitations. One is, when published on GitLab pages, the URI has always the schema  
+
+  \mbox{\textit{\url{http(s)://groupname.example.io/projectname}}}. For a own URI a DNS record, which redirects to the GitLab page URI, has to be set up. Second GitLab pages does not support content negotiation\footnote{\url{https://lov.linkeddata.es/dataset/lov/sparql}}. With content negotiation an HTTP client can specify which type (or types) of content it would prefer to receive in response, when it attempts to dereference an URI. For example while a browser accessing the ontology's URI would like to receive the ontology's documentation, a script would prefer to receive a machine readable serialization. 
 
  \begin{figure}[h]
   \centering
   \includegraphics[width=\columnwidth]{copperkey.png}
   \caption{Diagram for the Copperkey Ontology}
   \label{fig:copperkey}
-\end{figure}\todo{align correctly}
+\end{figure}
 
 \item \textit{RQ2.1 GUI support:} The ontology can be build in draw.io with diagram elements from the Chowlk diagram element library, which are extensively documented. \ref{fig:copperkey} shows a diagram which models a part of the copperdigital ontology. Because the Chowlk diagram models OWL and not a general RDF graph, it is not possible to model all aspects of the ontology with a diagram. Metadata like provenance, examples for classes or comments have to be defined in a additional RDF file.
 \item \textit{RQ2.2 Easy execution of ontology workflows:} When run as GitLab CI Job the execution happens automatically when draw.io saves the ontology diagram. Setting this automation up is done by copying a CI config file to the ontology repository. Running OntoFlow locally is more involved, because Java, Docker and Nextflow have to be installed and OntoFlow is triggered by a CLI command.
 \item \textit{RQ2.3 Fast execution of ontology workflows:} \ref{fig:eval} shows the relationship between the triple count in a ontology and the duration OntoFlow took to process the ontology.
 It took OntoFlow at least 17 seconds to process an ontology and the maximum processing duration was 314 seconds for an ontology with 103098 triples.
-A linear regression model was a good fit to model the relationship with a coefficient of determination of 0.91.\todo{new numbers}
+A linear regression model was a good fit to model the relationship with a coefficient of determination of 0.91.
 Workflow execution and time measurements were run on a 4-core laptop with a solid state disk. 
-The zoomed graph from \ref{fig:eval}, shows that execution durations are clustered around 25s for most ontologies, but this is for running OntoFlow locally. Execution with the free tier GitLab runner takes about 3-4 minutes. Execution with the GitLab runner takes more time because the free tier Runner only has one core and needs fetch all container images for each run. The excecution time could be improved by employing a more capable runner, optimize the containers for size or providing a single container for all process steps. \todo{improvements here?}
+The zoomed graph from \ref{fig:eval}, shows that execution durations are clustered around 25s for most ontologies, but this is for running OntoFlow locally. Execution with the free tier GitLab runner takes about 3-4 minutes. Execution with the GitLab runner takes more time because the free tier Runner only has one core and needs fetch all container images for each run.
 \todo{tradeoff containers}
 Execution duration scales linearly with the ontology size. 
 Execution time could be further reduced by optimizing \todo{finsish and sell the point that OntoFlow has great performance :)}
@@ -441,7 +444,7 @@ Execution time could be further reduced by optimizing \todo{finsish and sell the
 \section{Conclusion \& Future Work}
 \label{sec:final}
 In this paper we presented the OntoFlow approach that automates ontology development processes. By transferring CI techniques from software engineering to the  domain of ontology and data management, we are able to perform previously complex and error-prone engineering tasks faster and without the manual labor input that was previously required. this is made possible by the use of virtualized containers, which take over individual tasks of ontology processing and are so intelligently linked that only minimal manual intervention is required. 
-Great, but not
+
 - applicabilty to a broad range of ontologies 
 - number of triples is not an issue, focus is ontologies not taxonomies
 
@@ -452,15 +455,16 @@ We made the OntoFlow code and documentation available on GitLab, so that anyone 
 
 
 Improve startup time, with a single container
-Integrate Diff into documentation. (improve pylode)
+ The excecution time could be improved by employing a more capable runner, optimize the containers for size or providing a single container for all process steps.
+Integrate Diff, serializations and previous versions into documentation. (improve pylode)
 Also manage previous ontology versions.
 Follow best practices for publishing (content resolution).
 Develop SHACL shapes for best practises.
 Host documentation for all ontologies, add to lov
 
-\todo{diff and validation are just file and not integrated to documentation}
-
 Further modularize analog to nf-core.
+
+build rdf enabled piplines with sparql-integrate and nextflow
 
 \bibliographystyle{ACM-Reference-Format}
 \bibliography{ref}
